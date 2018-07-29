@@ -205,6 +205,13 @@
 
 		window.location.hash = window.btoa(input.textContent);
 	});
+
+	input.addEventListener('paste', function (event) {
+		event.preventDefault();
+
+		var text = event.clipboardData.getData('text/plain');
+		document.execCommand('insertHTML', false, text);
+	});
 </script>
 
 </html>

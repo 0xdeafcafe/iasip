@@ -1,0 +1,191 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+	<link rel="stylesheet" href="./assets/textile/stylesheet.css" />
+
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			background-color: #000;
+		}
+
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		#always-input {
+			/* reset */
+			cursor: text;
+			border: none;
+			outline: 0;
+
+			/* stylin */
+			min-width: 6rem;
+			min-height: 6rem;
+			font-family: 'textileregular', cursive;
+			
+			font-size: calc(1.5rem + 1.5vw);
+			line-height: calc(2rem + 1.5vw);
+
+			text-align: center;
+			background-color: #000;
+			color: #fff;
+			margin: 0 25vw;
+		}
+
+		@media only screen and (max-width: 600px) and (min-width: 100px) {
+			#always-input {
+				margin: 0 15vw;
+			}
+		}
+	</style>
+
+	<title>It's Always Sunny in Web Development</title>
+</head>
+<body>
+	<div id="always-input" contenteditable="true"></div>
+</body>
+
+<script type="text/javascript">
+	var body = document.getElementsByTagName('body')[0];
+	var input = document.getElementById('always-input');
+	var eps = [
+		'"A Very Sunny Christmas"',
+		'"America’s Next Top Paddy’s Billboard Model Contest"',
+		'"Bums: Making a Mess All Over the City"',
+		'"Chardee MacDennis: The Game of Games"',
+		'"Charlie and Dee Find Love"',
+		'"Charlie Gets Crippled"',
+		'"Charlie Goes America All Over Everybody\'s Ass"',
+		'"Charlie Got Molested"',
+		'"Charlie Has Cancer"',
+		'"Charlie Kelly: King of the Rats"',
+		'"Charlie Rules the World"',
+		'"Charlie Wants an Abortion"',
+		'"Charlie\'s Mom Has Cancer"',
+		'"Dee Gives Birth"',
+		'"Dee Reynolds: Shaping America\'s Youth"',
+		'"Dennis and Dee Get a New Dad"',
+		'"Dennis and Dee Go on Welfare"',
+		'"Dennis and Dee\'s Mom Is Dead"',
+		'"Dennis Gets Divorced"',
+		'"Dennis Looks Like a Registered Sex Offender"',
+		'"Dennis Reynolds: An Erotic Life"',
+		'"Frank Reynolds\' Little Beauties"',
+		'"Frank Sets Sweet Dee On Fire"',
+		'"Frank\'s Back in Business"',
+		'"Frank\'s Brother"',
+		'"Frank\'s Pretty Woman"',
+		'"Gun Fever"',
+		'"How Mac Got Fat"',
+		'"Hundred Dollar Baby"',
+		'"Mac and Charlie Die: Part One"',
+		'"Mac and Charlie Die: Part Two"',
+		'"Mac and Charlie Write a Movie"',
+		'"Mac and Charlie: White Trash"',
+		'"Mac and Dennis Break Up"',
+		'"Mac and Dennis: Manhunters"',
+		'"Mac Bangs Dennis\' Mom"',
+		'"Mac Fights Gay Marriage"',
+		'"Mac Is a Serial Killer"',
+		'"Mac’s Banging the Waitress"',
+		'"Mac\'s Big Break"',
+		'"Mac\'s Mom Burns Her House Down"',
+		'"Paddy’s Pub: The Worst Bar in Philadelphia"',
+		'"Paddy\'s Pub: Home of the Original Kitten Mittens"',
+		'"Pop-Pop: The Final Solution"',
+		'"Reynolds vs. Reynolds: The Cereal Defense"',
+		'"Sweet Dee Gets Audited"',
+		'"Sweet Dee Has a Heart Attack"',
+		'"Sweet Dee\'s Dating a Retarded Person"',
+		'"The Aluminum Monster vs. Fatty Magoo"',
+		'"The ANTI-Social Network"',
+		'"The D.E.N.N.I.S. System"',
+		'"The Gang Buys a Boat"',
+		'"The Gang Cracks the Liberty Bell"',
+		'"The Gang Dances Their Asses Off"',
+		'"The Gang Dines Out"',
+		'"The Gang Exploits A Miracle"',
+		'"The Gang Exploits the Mortgage Crisis"',
+		'"The Gang Finds A Dead Guy"',
+		'"The Gang Finds A Dumpster Baby"',
+		'"The Gang Gets a New Member"',
+		'"The Gang Gets Analyzed"',
+		'"The Gang Gets Extreme: Home Makeover Edition"',
+		'"The Gang Gets Held Hostage"',
+		'"The Gang Gets Invincible"',
+		'"The Gang Gets Racist"',
+		'"The Gang Gets Stranded in the Woods"',
+		'"The Gang Gets Trapped"',
+		'"The Gang Gets Whacked: Part 1"',
+		'"The Gang Gets Whacked: Part 2"',
+		'"The Gang Gives Back"',
+		'"The Gang Gives Frank an Intervention"',
+		'"The Gang Goes Jihad"',
+		'"The Gang Goes to the Jersey Shore"',
+		'"The Gang Goes Virtual"',
+		'"The Gang Hits the Road"',
+		'"The Gang Recycles Their Trash"',
+		'"The Gang Reignites the Rivalry"',
+		'"The Gang Runs for Office"',
+		'"The Gang Sells Out"',
+		'"The Gang Solves the Gas Crisis"',
+		'"The Gang Solves the North Korea Situation"',
+		'"The Gang Wrestles for the Troops"',
+		'"The Great Recession"',
+		'"The High School Reunion Part 2: The Gang\'s Revenge"',
+		'"The High School Reunion"',
+		'"The Nightman Cometh"',
+		'"The Storm of the Century"',
+		'"The Waitress Is Getting Married"',
+		'"The World Series Defense"',
+		'"Thunder Gun Express"',
+		'"Underage Drinking: A National Concern"',
+		'"Who Got Dee Pregnant"',
+		'"Who Pooped the Bed?"',
+	];
+
+	window.onload = function () {
+		var hash = window.location.hash;
+
+		if (!hash) {
+			var index = Math.floor((Math.random() * eps.length) + 1);
+
+			input.textContent = eps[index];
+		}
+
+		try {
+			input.textContent = window.atob(hash.split('#')[1]);
+		} catch (err) {
+			history.replaceState({}, document.title, window.location.pathname);
+		}
+	};
+
+	body.addEventListener('click', function (event) {
+		if (event.target.nodeName !== 'BODY' || input.textContent)
+			return;
+
+		input.focus();
+	});
+
+	input.addEventListener('input', function () {
+		if (!input.textContent) {
+			history.replaceState({}, document.title, window.location.pathname);
+
+			return;
+		}
+
+		window.location.hash = window.btoa(input.textContent);
+	});
+</script>
+
+</html>
